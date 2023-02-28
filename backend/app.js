@@ -3,12 +3,19 @@ const app = express();
 
 const PORT = 3000;
 
+// Middlware
+const middleware = (req, res, next) => {
+  console.log("Hello Middleware");
+  next();
+}
+
 
 app.get('/', (req, res) => {
   res.send(`Hello World from the server`);
 });
 
-app.get('/about', (req, res) => {
+app.get('/about', middleware, (req, res) => {
+  console.log("Hello my About page");
   res.send(`About Us page`);
 });
 
