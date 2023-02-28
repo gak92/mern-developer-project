@@ -1,0 +1,23 @@
+{
+  "name": "mern-developer-project",
+  "version": "1.0.0",
+  "description": "Basic MERN project to store record of the developers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gak92/mern-developer-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gak92/mern-developer-project/issues"
+  },
+  "homepage": "https://github.com/gak92/mern-developer-project#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
