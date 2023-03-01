@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 require("../db/conn");
 const User = require("../models/userSchema");
@@ -94,17 +95,18 @@ router.post("/signin", async (req, res) => {
     }
 
     const userExist = await User.findOne({email:email});
-    if(!userExist) {
-      console.log(userExist);
-      return res.status(400).json({
-        error: "Invalid Credenials",
-      });
+    if(userExist) {
+      const isPasswordMatch = await bcrypt.compare(password, userExist.password);
+      if(!isPasswordMatch) {
+        return res.status(400).json({error: "Invalid Credenials"});
+      }
+      else {
+        return res.json({message: "User sign in successfully."});
+      }
     }
     else {
-      console.log(userExist);
-      return res.json({message: "User sign in successfully."});
+      return res.status(400).json({error: "Invalid Credenials"});
     }
-
   }
   catch(err) {
     console.log(err);
