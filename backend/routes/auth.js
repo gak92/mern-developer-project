@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 require("../db/conn");
 const User = require("../models/userSchema");
@@ -97,6 +98,10 @@ router.post("/signin", async (req, res) => {
     const userExist = await User.findOne({email:email});
     if(userExist) {
       const isPasswordMatch = await bcrypt.compare(password, userExist.password);
+
+      const token = await userExist.generateAuthToken();
+      console.log(token);
+      
       if(!isPasswordMatch) {
         return res.status(400).json({error: "Invalid Credenials"});
       }
