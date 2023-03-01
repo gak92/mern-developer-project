@@ -4,7 +4,13 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 
+// Connect to the database
 require('./db/conn');
+
+app.use(express.json());
+
+// Link Router file
+app.use(require('./routes/auth'));
 
 // Middlware
 const middleware = (req, res, next) => {
@@ -12,9 +18,9 @@ const middleware = (req, res, next) => {
   next();
 };
 
-app.get("/", (req, res) => {
-  res.send(`Hello World from the server`);
-});
+// app.get("/", (req, res) => {
+//   res.send(`Hello World from the app.js`);
+// });
 
 app.get("/about", middleware, (req, res) => {
   console.log("Hello my About page");
