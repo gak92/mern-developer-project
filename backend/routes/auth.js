@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 });
 
 // ============================================================================
-// Promise Version to register user
+//                      Promise Version to register user
 // ============================================================================
 // router.post("/register", (req, res) => {
 //   const { name, email, phone, work, password, cpassword } = req.body;
@@ -47,7 +47,7 @@ router.get("/", (req, res) => {
 // });
 
 // ============================================================================
-//Async Await version to Register User
+//                  Async Await version to Register User
 // ============================================================================
 router.post("/register", async (req, res) => {
   const { name, email, phone, work, password, cpassword } = req.body;
@@ -76,5 +76,37 @@ router.post("/register", async (req, res) => {
     console.log(err);
   }
 });
+
+// ============================================================================
+//                Async Await version to Lgin User
+// ============================================================================
+router.post("/signin", async (req, res) => {
+  try {
+    const {email, password} = req.body;
+    if(!email || !password) {
+      return res.status(400).json({
+        error: "Please fill all fields"
+      });
+    }
+
+    const userExist = await User.findOne({email:email});
+    if(!userExist) {
+      console.log(userExist);
+      return res.status(400).json({
+        error: "Invalid Credenials",
+      });
+    }
+    else {
+      console.log(userExist);
+      return res.json({message: "User sign in successfully."});
+    }
+
+  }
+  catch(err) {
+    console.log(err);
+  }
+});
+
+
 
 module.exports = router;
