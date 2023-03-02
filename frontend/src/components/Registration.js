@@ -26,6 +26,32 @@ const Registration = () => {
     });
   }
 
+  const postData = async (e) => {
+    e.preventDefault();
+
+    const {name, email, phone, work, password, cpassword} = user;
+
+    const res = await fetch('/register', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({name, email, phone, work, password, cpassword})
+    });
+
+    const data = await res.json();
+
+    if(data.status === 422 || !data) {
+      window.alert("Invalid registration");
+      console.log("Invalid registration");
+    }
+    else {
+      window.alert("Registration successful");
+      console.log("Registration successful");
+    }
+
+  }
+
   return (
     <>
       <section className="signup">
@@ -33,7 +59,7 @@ const Registration = () => {
           <div className="signup-content">
             <div className="signup-form">
               <h2 className="form-title">Sing Up</h2>
-              <form className="register-form" id="register-form">
+              <form className="register-form" id="register-form" method="POST">
                 <div className="form-group">
                   <label htmlFor="name">
                     <i class="zmdi zmdi-account material-icons-name"></i>
@@ -131,6 +157,7 @@ const Registration = () => {
                     id="signup"
                     className="form-submit"
                     value="Register"
+                    onClick={postData}
                   />
                 </div>
               </form>
