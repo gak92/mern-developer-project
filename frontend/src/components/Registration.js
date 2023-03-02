@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import signpic from "../images/signup.jpg";
 
 const Registration = () => {
+
+  const [user, setUser] = useState({
+    name:"",
+    email:"",
+    phone:"",
+    work:"",
+    password:"",
+    cpassword:""
+  });
+
+  let name, value;
+  const handleInputs = (e) => {
+    console.log(e);
+
+    name = e.target.name;
+    value = e.target.value;
+
+    setUser({
+      ...user,
+      [name]:value
+    });
+  }
+
   return (
     <>
       <section className="signup">
@@ -21,6 +44,8 @@ const Registration = () => {
                     id="name"
                     autoComplete="off"
                     placeholder="Your Name"
+                    value={user.name}
+                    onChange={handleInputs}
                   />
                 </div>
 
@@ -34,6 +59,8 @@ const Registration = () => {
                     id="email"
                     autoComplete="off"
                     placeholder="Your Email"
+                    value={user.email}
+                    onChange={handleInputs}
                   />
                 </div>
 
@@ -47,6 +74,8 @@ const Registration = () => {
                     id="phone"
                     autoComplete="off"
                     placeholder="Your Mobile Number"
+                    value={user.phone}
+                    onChange={handleInputs}
                   />
                 </div>
 
@@ -60,6 +89,8 @@ const Registration = () => {
                     id="work"
                     autoComplete="off"
                     placeholder="Your Profession"
+                    value={user.work}
+                    onChange={handleInputs}
                   />
                 </div>
 
@@ -73,6 +104,8 @@ const Registration = () => {
                     id="password"
                     autoComplete="off"
                     placeholder="Your Password"
+                    value={user.password}
+                    onChange={handleInputs}
                   />
                 </div>
 
@@ -86,6 +119,8 @@ const Registration = () => {
                     id="cpassword"
                     autoComplete="off"
                     placeholder="Confirm our Password"
+                    value={user.cpassword}
+                    onChange={handleInputs}
                   />
                 </div>
 
