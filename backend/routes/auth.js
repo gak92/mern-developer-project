@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 require("../db/conn");
 const User = require("../models/userSchema");
+const authenticate = require("../middleware/authenticate");
 
 router.get("/", (req, res) => {
   res.send(`Hello World from the auth.js`);
@@ -122,6 +123,12 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-
+// ============================================================================
+//                            About Us Route
+// ============================================================================
+router.get("/about", authenticate, (req, res, next) => {
+  console.log("Hello my About page");
+  res.send(req.rootUser);
+});
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -8,24 +9,21 @@ const PORT = process.env.PORT;
 require('./db/conn');
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Link Router file
 app.use(require('./routes/auth'));
 
 // Middlware
-const middleware = (req, res, next) => {
-  console.log("Hello Middleware");
-  next();
-};
+// const middleware = (req, res, next) => {
+//   console.log("Hello Middleware");
+//   next();
+// };
 
 // app.get("/", (req, res) => {
 //   res.send(`Hello World from the app.js`);
 // });
 
-app.get("/about", middleware, (req, res) => {
-  console.log("Hello my About page");
-  res.send(`About Us page`);
-});
 
 app.get("/contact", (req, res) => {
   res.send(`Contact Us page`);
